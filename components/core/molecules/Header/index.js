@@ -1,7 +1,7 @@
 import { changeThemeMode } from "@/redux/theme/themeSlice";
 import { pages } from "@/utils/constants";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Switch, styled } from "@mui/material";
+import { Button, Switch, styled } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -17,12 +17,15 @@ import { usePathname } from "next/navigation";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchWithSuggestions from "../../atoms/SearchWithSuggestions";
+import { lightTheme } from "@/utils/theme";
+import { LightMode } from "@mui/icons-material";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [tokenVisibility, setTokenVisibility] = React.useState(false);
 
   const themeMode = useSelector((state) => state.theme.themeMode);
   const dispatch = useDispatch();
@@ -163,12 +166,34 @@ function Header() {
                 </Link>
               ))}
             </LinksMainBox>
-            <TokenMainBox>
-              <TokenTypography>rPyPN...revTR</TokenTypography>
-            </TokenMainBox>
-            <AvatarIconButton>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </AvatarIconButton>
+
+            {tokenVisibility ? (
+              <>
+                <TokenMainBox theme={lightTheme}>
+                  <TokenTypography>rPyPN...revTR</TokenTypography>
+                </TokenMainBox>
+                <AvatarIconButton>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </AvatarIconButton>
+              </>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                style={buttonStyles}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#7A52F4";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#7A52F4";
+                }}
+                onClick={() => {
+                  setTokenVisibility(!tokenVisibility);
+                }}
+              >
+                Connect Wallet
+              </Button>
+            )}
           </StyledBox2>
         </StyledToolbar>
       </Container>
@@ -330,7 +355,12 @@ const TokenMainBox = styled(Box)(({ theme }) => ({
   maxWidth: "160px",
   display: "flex",
   justifyContent: "center",
-  backgroundColor: "",
+  backgroundColor: "transparent",
+  transition: "background-color 0.3s",
+
+  "&:hover": {
+    backgroundColor: lightTheme.palette.tokenHoverColor.color,
+  },
 }));
 
 const TokenTypography = styled(Typography)(({ theme }) => ({
@@ -342,3 +372,14 @@ const TokenTypography = styled(Typography)(({ theme }) => ({
 const AvatarIconButton = styled(IconButton)(({ theme }) => ({
   padding: "0px",
 }));
+
+const buttonStyles = {
+  width: "160px",
+  height: "40px",
+  backgroundColor: lightTheme.palette.buttonColor.color,
+  borderRadius: 20,
+  color: "#fff",
+  fontSize: 12,
+  fontWeight: "bold",
+  transition: "background-color 0.3s",
+};

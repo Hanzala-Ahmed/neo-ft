@@ -5,7 +5,7 @@ export const lightTheme = createTheme({
     mode: "light",
     primary: {
       main: "#FFF",
-      dark: "#5D5D5B"
+      dark: "#5D5D5B",
     },
     secondary: {
       main: "#000000",
@@ -13,19 +13,26 @@ export const lightTheme = createTheme({
     typography: {
       color: "#000000",
     },
+    buttonColor: {
+      color: "#7A52F4",
+    },
+    tokenHoverColor: {
+      color: "#D9D9D9",
+    },
     background: {
       default: "#FFFFFF",
       paper: "#FFFFFF",
     },
+
     boxShadow: {
       appBar: "0px 3px 4px 0px rgba(153, 155, 168, 0.25)",
     },
     typography: {
-        main: "#5D5D5B"
+      main: "#5D5D5B",
     },
     borderColor: {
-        main: "#5D5D5B"
-    }
+      main: "#5D5D5B",
+    },
   },
 });
 

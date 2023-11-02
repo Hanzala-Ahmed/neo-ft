@@ -27,7 +27,7 @@ export default function SearchWithSuggestions() {
   }, [value]);
 
   return (
-    <div className="searchMainBox"  ref={ref}>
+    <div className="searchMainBox" ref={ref}>
       <SearchMainBox
         sx={{
           border: themeMode === "light" && "1px solid #EBF0F080",
@@ -37,6 +37,7 @@ export default function SearchWithSuggestions() {
         <Search />
         <input
           className="searchInput"
+          placeholder="Search..."
           value={value}
           style={{
             color: themeMode === "light" ? "#000" : "#fff",
@@ -45,24 +46,27 @@ export default function SearchWithSuggestions() {
             setValue(e.target.value);
           }}
         />
-        <TotalLengthBox
-          sx={{
-            border:
-              themeMode === "light"
-                ? "1px solid #CFDBD5"
-                : "1px solid #EBF0F01A",
-          }}
-        >
-          Clear
-          <LengthTextBox
+        {value && open && (
+          <TotalLengthBox
             sx={{
               border:
-                themeMode === "light" ? "1px solid #000" : "1px solid #fff",
+                themeMode === "light"
+                  ? "1px solid #CFDBD5"
+                  : "1px solid #EBF0F01A",
             }}
+            onClick={() => setValue("")}
           >
-            5
-          </LengthTextBox>
-        </TotalLengthBox>
+            Clear
+            <LengthTextBox
+              sx={{
+                border:
+                  themeMode === "light" ? "1px solid #000" : "1px solid #fff",
+              }}
+            >
+              5
+            </LengthTextBox>
+          </TotalLengthBox>
+        )}
       </SearchMainBox>
       {value && open && (
         <ResultsMainBox
