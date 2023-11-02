@@ -84,53 +84,16 @@ export default function SearchWithSuggestions() {
                   <div>
                     {" "}
                     <SearchTypeTypography>Collections</SearchTypeTypography>
-                    {item.collections?.map((collection, ind) => {
-                      return (
-                        <CollectionMainBox
-                          sx={{
-                            borderBottom:
-                              ind !== item.collections.length - 1 &&
-                              "1px solid rgba(207, 219, 213, 0.15)",
-                          }}
-                          key={ind}
-                        >
-                          <CollectionBox>
-                            <Image
-                              src={"/static/collectionImg.svg"}
-                              width={30}
-                              height={30}
-                            />
-                            <CollectionNameTypography>
-                              {collection.name}
-                            </CollectionNameTypography>
-                          </CollectionBox>
-                          <CollectionCountBox>
-                            <Image
-                              src={"/static/doubleArrow.svg"}
-                              width={14}
-                              height={14}
-                              style={{ color: "white" }}
-                            />
-                            <CollectionCountTypography>
-                              {collection.items} items
-                            </CollectionCountTypography>
-                          </CollectionCountBox>
-                        </CollectionMainBox>
-                      );
-                    })}
-                  </div>
-                )}
-                {item.type == "profiles" && (
-                  <div>
-                    {" "}
-                    <SearchTypeTypography>Profiles</SearchTypeTypography>
-                    {item.profiles.map((profile, ind) => {
-                      return (
-                        <>
+                    {item.collections
+                      ?.filter((i) =>
+                        i.name.toLowerCase().includes(value.toLowerCase())
+                      )
+                      .map((collection, ind) => {
+                        return (
                           <CollectionMainBox
                             sx={{
                               borderBottom:
-                                ind !== item.profiles.length - 1 &&
+                                ind !== item.collections.length - 1 &&
                                 "1px solid rgba(207, 219, 213, 0.15)",
                             }}
                             key={ind}
@@ -140,16 +103,61 @@ export default function SearchWithSuggestions() {
                                 src={"/static/collectionImg.svg"}
                                 width={30}
                                 height={30}
-                                style={{}}
                               />
                               <CollectionNameTypography>
-                                {profile.name}
+                                {collection.name}
                               </CollectionNameTypography>
                             </CollectionBox>
+                            <CollectionCountBox>
+                              <Image
+                                src={"/static/doubleArrow.svg"}
+                                width={14}
+                                height={14}
+                                style={{ color: "white" }}
+                              />
+                              <CollectionCountTypography>
+                                {collection.items} items
+                              </CollectionCountTypography>
+                            </CollectionCountBox>
                           </CollectionMainBox>
-                        </>
-                      );
-                    })}
+                        );
+                      })}
+                  </div>
+                )}
+                {item.type == "profiles" && (
+                  <div>
+                    {" "}
+                    <SearchTypeTypography>Profiles</SearchTypeTypography>
+                    {item.profiles
+                      .filter((i) =>
+                        i.name.toLowerCase().includes(value.toLowerCase())
+                      )
+                      .map((profile, ind) => {
+                        return (
+                          <>
+                            <CollectionMainBox
+                              sx={{
+                                borderBottom:
+                                  ind !== item.profiles.length - 1 &&
+                                  "1px solid rgba(207, 219, 213, 0.15)",
+                              }}
+                              key={ind}
+                            >
+                              <CollectionBox>
+                                <Image
+                                  src={"/static/collectionImg.svg"}
+                                  width={30}
+                                  height={30}
+                                  style={{}}
+                                />
+                                <CollectionNameTypography>
+                                  {profile.name}
+                                </CollectionNameTypography>
+                              </CollectionBox>
+                            </CollectionMainBox>
+                          </>
+                        );
+                      })}
                   </div>
                 )}
               </>
